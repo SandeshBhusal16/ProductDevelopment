@@ -4,16 +4,14 @@ class GalleryController {
   UploadImage = async (req, res, next) => {
     try {
       let data = req.body;
-      if (req.files) {
-        data.image = req.files.map((file) => file.filename);
+      if (req.file) {
+        data.image = req.file.filename;
       } else {
         console.log("image is required");
       }
       let response2 = await GallerySrv.imagevalidation(data);
-      console.log(response2);
 
       let response = await GallerySrv.UploadImage(data);
-      console.log(response);
       res.json({
         data: response,
         msg: "post created Sucessfully",
@@ -54,23 +52,26 @@ class GalleryController {
 
   UpdatePost = async (req, res, next) => {
     try {
-      let data = req.body;
       let postDetails = await GallerySrv.getpostbyId(req.params.id);
-      await GallerySrv.imagevalidation(data);
-      if (req.files) {
-        data.image = req.files.map((file) => file.filename);
+      let data = req.body;
+      if (req.file) {
+        data.image = req.file.filename;
       } else {
         data.image = postDetails.image;
       }
-      let response = await GallerySrv.UpdatePost(req.params.id);
+      let validation = await GallerySrv.imagevalidation(data);
+
+      let response = await GallerySrv.UpdatePost(req.params.id, validation);
       res.json({
         data: response,
         msg: "Post updated successfully",
         code: true,
         meta: null,
       });
-    } catch (exception) {
-      throw exception;
+    } catch (error) {
+      next({
+        msg: error.details[0].message,
+      });
     }
   };
 }

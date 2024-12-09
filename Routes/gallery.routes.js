@@ -11,12 +11,17 @@ const dirPath = (req, res, next) => {
 galleryRoutes.post(
   "/image",
   dirPath,
-  uploader.array("image", 10),
+  uploader.single("image"),
   GalleryCtrl.UploadImage
 );
 galleryRoutes.get("/active/:id");
 galleryRoutes.get("/allpost", GalleryCtrl.getAllPost);
 galleryRoutes.get("/hello", GalleryCtrl.test);
-galleryRoutes.put("/post/update/:id", GalleryCtrl.UpdatePost);
+galleryRoutes.patch(
+  "/post/update/:id",
+  dirPath,
+  uploader.single("image"),
+  GalleryCtrl.UpdatePost
+);
 
 module.exports = galleryRoutes;

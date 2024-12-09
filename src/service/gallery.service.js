@@ -5,8 +5,7 @@ class galleryService {
   imagevalidation = async (data) => {
     try {
       let rules = Joi.object({
-        image: Joi.array().items(Joi.string()).required(),
-        // image: Joi.string(),
+        image: Joi.string().required(),
         description: Joi.string().required(),
         title: Joi.string().required(),
         rating: Joi.string(),
@@ -49,9 +48,11 @@ class galleryService {
       throw exception;
     }
   };
-  UpdatePost = async (id) => {
+  UpdatePost = async (id, data) => {
     try {
-      let response = await GalleryModel.findByIdAndUpdate(id);
+      let response = await GalleryModel.findByIdAndUpdate(id, {
+        $set: data,
+      });
       return response;
     } catch (exception) {
       throw exception;
