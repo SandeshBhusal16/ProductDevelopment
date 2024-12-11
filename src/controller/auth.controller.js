@@ -7,12 +7,11 @@ class AuthController {
     try {
       let payload = req.body;
       await usersrv.login(payload);
-      let response = await usersrv.findUserByEmail(payload);
+      let response = await usersrv.findUserByEmail(payload.email);
       if (response) {
-        let checkPass = await bcrypt.compare(
-          payload.password,
-          response.password
-        );
+        let checkPass = bcrypt.compareSync(payload.password, response.password);
+        console.log("passcheck", checkPass);
+
         let accessToken = jwtToken.sign(
           { id: response._id },
           process.env.JWT_KEY,

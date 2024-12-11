@@ -45,12 +45,9 @@ class AuthService {
     }
   };
 
-  findUserByEmail = async (cred) => {
+  findUserByEmail = async (email) => {
     try {
-      let response = await UserModel.findOne(
-        { email: cred.email },
-        { password: 0 }
-      );
+      let response = await UserModel.findOne({ email });
       return response;
     } catch (exception) {
       throw exception;

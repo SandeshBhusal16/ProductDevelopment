@@ -19,7 +19,7 @@ const AuthCheck = async (req, res, next) => {
 
     if (UserDetails) {
       req.User = UserDetails;
-      // next();
+      next();
     }
   } catch (error) {
     next({
