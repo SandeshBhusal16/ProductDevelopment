@@ -64,6 +64,39 @@ class AuthController {
       });
     }
   };
+  contact = async (req, res, next) => {
+    try {
+      let data = req.body;
+
+      // Validate contact data
+      if (!data.name || !data.email || !data.message) {
+        throw { msg: "All fields (name, email, message) are required." };
+      }
+
+      // Save contact data using a service
+      let response = await usersrv.saveContact(data);
+
+      if (response) {
+        res.json({
+          data: response,
+          msg: "Thank you for contacting us. We will get back to you soon.",
+          code: 200,
+          meta: null,
+        });
+      } else {
+        throw { msg: "Failed to submit your message. Please try again later." };
+      }
+    } catch (error) {
+      console.log("contact", error);
+      next({
+        msg: error,
+        code: 500,
+        meta: null,
+      });
+    }
+  };
+
+
 }
 
 const authctrl = new AuthController();
