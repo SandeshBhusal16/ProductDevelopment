@@ -13,11 +13,23 @@ const ContactSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  companyName: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
   jobTitle: {
     type: String,
     required: true,
   },
-});
+  jobDetails: {
+    type: String,
+    required: true,
+  },
+}, { timestamps: true });
 
 const ContactModel = mongoose.model("ContactUs", ContactSchema);
 module.exports = ContactModel;
