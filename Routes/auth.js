@@ -10,4 +10,5 @@ AuthRoutes.get("/me", AuthCheck);
 AuthRoutes.post ("/contact", contactCtrl.contact);
 
 
+
 module.exports = AuthRoutes;

@@ -11,7 +11,7 @@ class ContactController {
         throw { msg: "All fields (name, email, phone, companyName, country, jobTitle, jobDetails) are required." };
       }
 
-      
+        
      
       let response = await new ContactModel(data).save();
 
