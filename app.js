@@ -2,12 +2,20 @@ const express = require("express");
 require("./config/database.config");
 const app = express();
 const routes = require("./Routes");
+const cors = require("cors");
+const path = require("path");
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(
   express.json(),
   express.urlencoded({
     extended: true,
   })
 );
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(routes);
 app.use((req, res, next) => {
   next({

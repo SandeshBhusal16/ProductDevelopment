@@ -5,7 +5,7 @@ class GalleryController {
     try {
       let data = req.body;
       if (req.file) {
-        data.image = req.file.filename;
+        data.image = `http://localhost:3005/public/upload/${req.file.filename}`;
       } else {
         console.log("image is required");
       }
@@ -55,7 +55,7 @@ class GalleryController {
       let postDetails = await GallerySrv.getpostbyId(req.params.id);
       let data = req.body;
       if (req.file) {
-        data.image = req.file.filename;
+        data.image = `http://localhost:3005/public/upload/${req.file.filename}`;
       } else {
         data.image = postDetails.image;
       }
@@ -71,6 +71,22 @@ class GalleryController {
     } catch (error) {
       next({
         msg: error.details[0].message,
+      });
+    }
+  };
+  deletePost = async (req, res, next) => {
+    try {
+      let response = await GallerySrv.deletePost(req.params.id);
+      res.json({
+        msg: "Post deleted successfully",
+        data: response,
+        code: true,
+        meta: null,
+      });
+    } catch (error) {
+      console.log(error);
+      next({
+        msg: error,
       });
     }
   };

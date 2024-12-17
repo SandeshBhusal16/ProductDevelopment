@@ -58,6 +58,16 @@ class galleryService {
       throw exception;
     }
   };
+  deletePost = async (id) => {
+    try {
+      let response = await GalleryModel.findByIdAndDelete(id);
+      console.log(response);
+
+      return response;
+    } catch (exc) {
+      throw exc;
+    }
+  };
 }
 
 const GallerySrv = new galleryService();

@@ -21,11 +21,12 @@ galleryRoutes.get("/allpost", GalleryCtrl.getAllPost);
 galleryRoutes.get("/hello", GalleryCtrl.test);
 galleryRoutes.patch(
   "/post/update/:id",
-  AuthCheck,
-  IsAdmin,
+  // AuthCheck,
+  // IsAdmin,
   dirPath,
   uploader.single("image"),
   GalleryCtrl.UpdatePost
 );
+galleryRoutes.delete("/delete/:id", GalleryCtrl.deletePost);
 
 module.exports = galleryRoutes;
