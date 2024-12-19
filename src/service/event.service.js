@@ -7,10 +7,11 @@ class EventService {
     try {
       const rules = Joi.object({
         name: Joi.string().required(),
-        date: Joi.date().required(),
-        description: Joi.string().allow(null, "").optional(), 
+        startdate: Joi.date().required(),
+        enddate: Joi.date().required(),
+        description: Joi.string().allow(null, "").optional(),
         location: Joi.string().required(),
-        image: Joi.string(), 
+        image: Joi.string(),
       });
 
       const response = await rules.validateAsync(data);

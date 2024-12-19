@@ -9,15 +9,19 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: true, // Description of the event is required
   },
-  date: {
+  startdate: {
+    type: Date,
+    required: true, // Date of the event is required
+  },
+  enddate: {
     type: Date,
     required: true, // Date of the event is required
   },
   location: {
-    type: String, 
+    type: String,
   },
   image: {
-    type: String, 
+    type: String,
   },
 });
 

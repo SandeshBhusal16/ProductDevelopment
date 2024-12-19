@@ -1,7 +1,7 @@
 const EventCtrl = require("../src/controller/event.controller");
 const AuthCheck = require("../src/rbac/authcheck");
 const { IsAdmin } = require("../src/rbac/rbac");
-const uploader = require ("../src/middleware/uploder")
+const uploader = require("../src/middleware/uploder");
 
 const eventRoutes = require("express").Router();
 
@@ -12,8 +12,7 @@ const dirPath = (req, res, next) => {
 };
 
 // Route to create a new event
-eventRoutes.post("/",   dirPath,
-  uploader.single("image"), EventCtrl.CreateEvent);
+eventRoutes.post("/", dirPath, uploader.single("image"), EventCtrl.CreateEvent);
 
 // Route to get all events
 eventRoutes.get("/all", EventCtrl.GetAllEvents);
@@ -25,16 +24,16 @@ eventRoutes.get("/:id", EventCtrl.GetEventById);
 eventRoutes.patch(
   "/update/:id",
   AuthCheck,
-  IsAdmin,
-  dirPath, // Only if events have associated uploads
+  // IsAdmin,
+  // dirPath,
   EventCtrl.UpdateEvent
 );
 
 // Route to delete an event by ID
 eventRoutes.delete(
   "/delete/:id",
-  AuthCheck,
-  IsAdmin,
+  // AuthCheck,
+  // IsAdmin,
   EventCtrl.DeleteEvent
 );
 
@@ -48,4 +47,3 @@ module.exports = eventRoutes;
 // eventRoutes.put("/:id", EventCtrl.UpdateEvent);
 // eventRoutes.delete("/:id", EventCtrl.DeleteEvent);
 // eventRoutes.get("/test", EventCtrl.Test);
-

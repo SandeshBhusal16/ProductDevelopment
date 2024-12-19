@@ -1,5 +1,4 @@
-const EventSrv = require ("../service/event.service"); 
-
+const EventSrv = require("../service/event.service");
 
 class EventController {
   // Create a new event
@@ -7,7 +6,7 @@ class EventController {
     try {
       let data = req.body;
       if (req.file) {
-        data.image = req.file.filename; // Handle optional image upload
+        data.image = `http://localhost:3005/public/upload/${req.file.filename}`; // Handle optional image upload
       }
 
       // Validate the event data (assuming a validation method exists in the service)
@@ -80,7 +79,7 @@ class EventController {
       let existingEvent = await EventSrv.GetEventById(req.params.id);
       let data = req.body;
       if (req.file) {
-        data.image = req.file.filename; // Update image if provided
+        data.image = `http://localhost:3005/public/upload/${req.file.filename}`; // Update image if provided
       } else {
         data.image = existingEvent.image; // Keep the old image if none provided
       }
