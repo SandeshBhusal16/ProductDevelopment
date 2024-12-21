@@ -99,7 +99,7 @@ class EventController {
       console.error("Error while updating event", error);
       next({
         data: "",
-        msg: "Event update failed",
+        msg: error?.details[0]?.message,
         code: 400,
         meta: null,
       });

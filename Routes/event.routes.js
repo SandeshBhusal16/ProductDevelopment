@@ -23,9 +23,10 @@ eventRoutes.get("/:id", EventCtrl.GetEventById);
 // Route to update an event by id
 eventRoutes.patch(
   "/update/:id",
-  AuthCheck,
+  // AuthCheck,
   // IsAdmin,
-  // dirPath,
+  dirPath,
+  uploader.single("image"),
   EventCtrl.UpdateEvent
 );
 

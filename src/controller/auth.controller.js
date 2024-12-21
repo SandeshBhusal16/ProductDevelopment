@@ -23,6 +23,7 @@ class AuthController {
           res.json({
             data: {
               AscessToken: accessToken,
+              role: response.role,
               data: response,
             },
             msg: "login successfull",
