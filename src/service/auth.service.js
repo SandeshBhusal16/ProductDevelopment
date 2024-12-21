@@ -22,7 +22,7 @@ class AuthService {
         lname: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required(),
-        phone: Joi.string(),
+        phone: Joi.number(),
       });
 
       let response = rules.validate(data);
