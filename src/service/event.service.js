@@ -12,6 +12,7 @@ class EventService {
         description: Joi.string().allow(null, "").optional(),
         location: Joi.string().required(),
         image: Joi.string(),
+        status: Joi.string().allow(""),
       });
 
       const response = await rules.validateAsync(data);

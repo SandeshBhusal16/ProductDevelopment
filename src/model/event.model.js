@@ -23,6 +23,9 @@ const EventSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  status: {
+    type: String,
+  },
 });
 
 const EventModel = mongoose.model("Event", EventSchema);

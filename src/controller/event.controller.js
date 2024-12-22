@@ -1,3 +1,4 @@
+const moment = require("moment");
 const EventSrv = require("../service/event.service");
 
 class EventController {
@@ -9,11 +10,20 @@ class EventController {
         data.image = `http://localhost:3005/public/upload/${req.file.filename}`; // Handle optional image upload
       }
 
+      const startDate = new Date(data.startdate);
+      const endDate = new Date(data.enddate);
+      const currentDate = new Date();
+      if (endDate < currentDate) {
+        data.status = "pastEvent";
+      } else if (startDate > currentDate) {
+        data.status = "UpcomingEvent";
+      } else {
+        data.status = "todayEvent";
+      }
       // Validate the event data (assuming a validation method exists in the service)
       const validation = await EventSrv.validateEvent(data);
-
-      // Create the event
       const response = await EventSrv.CreateEvent(validation);
+
       res.json({
         data: response,
         msg: "Event created successfully",
@@ -35,6 +45,7 @@ class EventController {
   GetAllEvents = async (req, res, next) => {
     try {
       const response = await EventSrv.GetAllEvents();
+
       res.json({
         data: response,
         msg: "All events retrieved successfully",
