@@ -10,9 +10,9 @@ class EventController {
         data.image = `http://localhost:3005/public/upload/${req.file.filename}`; // Handle optional image upload
       }
 
-      const startDate = new Date(data.startdate);
-      const endDate = new Date(data.enddate);
-      const currentDate = new Date();
+      const startDate = new Date(data.startdate).setHours(0, 0, 0, 0);
+      const endDate = new Date(data.enddate).setHours(0, 0, 0, 0);
+      const currentDate = new Date().setHours(0, 0, 0, 0);
       if (endDate < currentDate) {
         data.status = "pastEvent";
       } else if (startDate > currentDate) {
@@ -93,6 +93,16 @@ class EventController {
         data.image = `http://localhost:3005/public/upload/${req.file.filename}`; // Update image if provided
       } else {
         data.image = existingEvent.image; // Keep the old image if none provided
+      }
+      const startDate = new Date(data.startdate).setHours(0, 0, 0, 0);
+      const endDate = new Date(data.enddate).setHours(0, 0, 0, 0);
+      const currentDate = new Date().setHours(0, 0, 0, 0);
+      if (endDate < currentDate) {
+        data.status = "pastEvent";
+      } else if (startDate > currentDate) {
+        data.status = "UpcomingEvent";
+      } else if (endDate === currentDate || startDate === currentDate) {
+        data.status = "todayEvent";
       }
 
       // Validate the updated event data

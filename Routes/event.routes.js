@@ -15,7 +15,7 @@ const dirPath = (req, res, next) => {
 eventRoutes.post("/", dirPath, uploader.single("image"), EventCtrl.CreateEvent);
 
 // Route to get all events
-eventRoutes.get("/all", EventCtrl.GetAllEvents);
+eventRoutes.get("/allevents", EventCtrl.GetAllEvents);
 
 // Route to get a single event by id
 eventRoutes.get("/:id", EventCtrl.GetEventById);
